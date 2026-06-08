@@ -1,0 +1,11 @@
+{
+    "extends": "stylelint-config-standard",
+    "rules": {
+        "color-no-invalid-hex": true,
+        "declaration-block-no-duplicate-properties": true,
+        "no-duplicate-selectors": true,
+        "unit-no-unknown": true,
+        "property-no-unknown": true,
+        "no-missing-end-of-source-newline": true
+    }
+}

@@ -1,0 +1,45 @@
+name: Lint
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  eslint:
+    name: JavaScript (ESLint)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install eslint @eslint/js globals --save-dev
+      - run: npx eslint --config config/eslint.config.js script.js
+
+  htmlhint:
+    name: HTML (HTMLHint)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install htmlhint --save-dev
+      - run: npx htmlhint --config config/.htmlhintrc index.html
+
+  stylelint:
+    name: CSS (Stylelint)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install stylelint stylelint-config-standard --save-dev
+      - run: |
+          if [ -s styles.css ]; then
+            npx stylelint --config config/.stylelintrc.json styles.css
+          else
+            echo "styles.css is empty, skipping lint"
+          fi
